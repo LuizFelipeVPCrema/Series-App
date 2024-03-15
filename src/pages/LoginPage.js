@@ -23,7 +23,7 @@ export default class LoginPage extends React.Component {
     
     componentDidMount() {
         const firebaseConfig = {
-        //Configurações do Servidor FireBase
+            //Configurações do Servidor FireBase
         };
 
         
