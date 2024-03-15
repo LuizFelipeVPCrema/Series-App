@@ -23,13 +23,7 @@ export default class LoginPage extends React.Component {
     
     componentDidMount() {
         const firebaseConfig = {
-            apiKey: "AIzaSyAvEA29s5R93JPI4xCw_Qpz96aDjQYY2w8",
-            authDomain: "series-app-ba19a.firebaseapp.com",
-            projectId: "series-app-ba19a",
-            storageBucket: "series-app-ba19a.appspot.com",
-            messagingSenderId: "939050441167",
-            appId: "1:939050441167:web:5f1b5eefe0e9e40b999aba",
-            measurementId: "G-97QZVB1PET"
+        //Configurações do Servidor FireBase
         };
 
         
