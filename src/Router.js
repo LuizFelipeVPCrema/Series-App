@@ -18,6 +18,14 @@ function LoginScreen(){
   );
 }
 
+function SeriesScreen() {
+  return (
+    <View>
+      <SeriesPage />
+    </View>
+  );
+}
+
 
 
 export default function Router() {
@@ -34,6 +42,7 @@ export default function Router() {
           }
         }}>
           <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Bem Vindo!'}}/>
+          <Stack.Screen name="Series" component={SeriesScreen} options={{ title: 'Bem Vindo!'}}/>
 
           
         </Stack.Navigator>

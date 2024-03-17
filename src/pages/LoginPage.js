@@ -1,86 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import {  View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Alert} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { connect } from "react-redux";
 
-
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
-
+import firebaseApp from "../firebase/firebaseApp";
 
 import  FormRow  from "../components/FormRow";
+import { tryLogin } from "../actions";
 
 
-export default class LoginPage extends React.Component {
-    constructor(props){
-        super(props);
-        
-        this.state = {
-            mail: '',
-            password: '',
-            isLoading: false,
-            errorMessage: '',
+
+const LoginPage = (props) => {
+    const [mail, setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [message, setMessage] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const navigation = useNavigation();
+    
+    const onChangeHandler = (key, value) => {
+        if(key === 'mail') {
+            setMail(value);
+        }else if(key === 'password') {
+            setPassword(value);
         }
+    };
+    
+    const tryLogin = () => {
+        setIsLoading(true);
+        setMessage('');
+
+        props.tryLogin({ email: mail, password }, firebaseApp)
+            .then(() => {
+                setMessage('Sucesso!');
+                setIsLoading(false);
+                navigation.replace('Series');
+            })
+            .catch(error => {
+                setIsLoading(false);
+                setMessage(getMenssageByErrorCode(error.code));
+            })
+    
     }
     
-    componentDidMount() {
-        const firebaseConfig = {
-            //Configurações do Servidor FireBase
-        };
 
-        
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        return app
-    }
-    
-    onChangeHandler(key, value) {
-        this.setState({ [key]: value });
-    }
-    
-    tryLogin(app) {
-
-        this.setState({ isLoading: true, message: ''});
-        const { mail, password } = this.state;
-
-        const auth = getAuth(app);
-
-        const loginUserSucess = user => {
-            this.setState({ message : "Sucesso!" });
-        }
-
-        const loginUserFailed = error => {
-            this.setState({ message: this.getMenssageByErrorCode(error.code) });
-        }
-
-        signInWithEmailAndPassword(auth, mail, password)
-        .then(loginUserSucess)
-        .catch((error) => {
-            if(error.code === 'auth/user-not-found' || 'auth/invalid-credential') {
-                Alert.alert(
-                    'Usuário não encontrado!',
-                    'Deseja criar um cadastro com as informações inseridas?',
-                    [{
-                        text: 'Não',
-                        onPress: () => {},
-                        style: 'cancel' // IOS
-                    }, {
-                        text: 'Sim',
-                        onPress: () => {
-                            createUserWithEmailAndPassword(auth, mail, password)
-                                .then(loginUserSucess)
-                                .catch(loginUserFailed)
-                            }
-                    }],
-                    { cancelable: false }
-                )
-                return;
-            }    
-           loginUserFailed(error);
-                
-        })
-        .then(() => this.setState({ isLoading: false }));
-    }
-
-    getMenssageByErrorCode(errorCode) {
+    const getMenssageByErrorCode = (errorCode) => {
         switch (errorCode) {
             case 'auth/wrong-password':
                 return 'Senha incorreta';
@@ -102,10 +65,8 @@ export default class LoginPage extends React.Component {
     }
 
 
-    renderMessage() {
-        const { message } = this.state;
-        if(!message)
-            return null;
+    const renderMessage = () => {
+        if(!message) return null;
 
         return(
             <View>
@@ -114,41 +75,38 @@ export default class LoginPage extends React.Component {
         )
     }
 
+    return(
+        <View style={styles.container}>
+            <FormRow first>
+                <TextInput 
+                    placeholder="user@email.com" 
+                    style={styles.input} 
+                    placeholderTextColor={"gray"}
+                    value={mail}
+                    onChangeText={value => onChangeHandler( 'mail', value )}
+                />
+            </FormRow>    
+            <FormRow last>
+                <TextInput 
+                    placeholder="********" 
+                    style={styles.input} 
+                    placeholderTextColor={"gray"} 
+                    secureTextEntry
+                    value={password}
+                    onChangeText={value => onChangeHandler( 'password', value )}
+                />
+            </FormRow>
+            {
+                isLoading 
+                    ? <ActivityIndicator/> 
+                    : <Button title="Entrar" onPress={() => tryLogin()} /> 
+            }
+            {renderMessage() }
 
-render(){
-    
-            return(
-                <View style={styles.container}>
-                    <FormRow first>
-                        <TextInput 
-                            placeholder="user@email.com" 
-                            style={styles.input} 
-                            placeholderTextColor={"gray"}
-                            value={this.state.mail}
-                            onChangeText={value => this.onChangeHandler( 'mail', value )}
-                        />
-                    </FormRow>    
-                    <FormRow last>
-                        <TextInput 
-                            placeholder="********" 
-                            style={styles.input} 
-                            placeholderTextColor={"gray"} 
-                            secureTextEntry
-                            value={this.state.password}
-                            onChangeText={value => this.onChangeHandler( 'password', value )}
-                        />
-                    </FormRow>
-                    {
-                        this.state.isLoading 
-                        ? <ActivityIndicator/> 
-                        : <Button title="Entrar" onPress={() => this.tryLogin()} /> 
-                    }
-                    { this.renderMessage() }
+                
+        </View>
+    );
 
-                       
-                </View>
-            );
-    }
 
 }
 
@@ -165,3 +123,7 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     }
 });
+
+
+
+export default connect(null, { tryLogin })(LoginPage) ;
