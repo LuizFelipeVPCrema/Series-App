@@ -1,5 +1,5 @@
 import React from 'react';
-import {  View, useColorScheme } from 'react-native';
+import {  View, useColorScheme, StatusBar } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -34,6 +34,7 @@ export default function Router() {
 
   return (
       <NavigationContainer theme={DarkTheme}>
+        <StatusBar barStyle="light-content" backgroundColor="#000" />
         <Stack.Navigator
         screenOptions={{
           title: "Séries!",
@@ -43,8 +44,6 @@ export default function Router() {
         }}>
           <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Bem Vindo!'}}/>
           <Stack.Screen name="Series" component={SeriesScreen} options={{ title: 'Bem Vindo!'}}/>
-
-          
         </Stack.Navigator>
       </NavigationContainer>
   );

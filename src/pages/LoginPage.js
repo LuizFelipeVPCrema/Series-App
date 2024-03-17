@@ -8,8 +8,6 @@ import firebaseApp from "../firebase/firebaseApp";
 import  FormRow  from "../components/FormRow";
 import { tryLogin } from "../actions";
 
-
-
 const LoginPage = (props) => {
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,10 +28,9 @@ const LoginPage = (props) => {
         setMessage('');
 
         props.tryLogin({ email: mail, password }, firebaseApp)
-            .then(() => {
-                setMessage('Sucesso!');
+            .then(user => {
                 setIsLoading(false);
-                navigation.replace('Series');
+                if(user) return navigation.replace('Series');
             })
             .catch(error => {
                 setIsLoading(false);
@@ -84,6 +81,8 @@ const LoginPage = (props) => {
                     placeholderTextColor={"gray"}
                     value={mail}
                     onChangeText={value => onChangeHandler( 'mail', value )}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                 />
             </FormRow>    
             <FormRow last>
@@ -110,7 +109,6 @@ const LoginPage = (props) => {
 
 }
 
-
 const styles = StyleSheet.create({
     container: {
         paddingLeft: 10,
@@ -123,7 +121,5 @@ const styles = StyleSheet.create({
         paddingBottom: 5,
     }
 });
-
-
 
 export default connect(null, { tryLogin })(LoginPage) ;
