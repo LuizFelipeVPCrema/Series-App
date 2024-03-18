@@ -5,6 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import LoginPage from './pages/LoginPage';
 import SeriesPage from './pages/SeriesPage';
+import SerieDetailPage from './pages/SerieDetailPage';
+import SerieFormPage from './pages/SerieFormPage';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +28,23 @@ function SeriesScreen() {
   );
 }
 
+function SerieDetailScreen({ route }) {
+  const { serie } = route.params;
+
+  return (
+    <View>
+      <SerieDetailPage serie={serie} />
+    </View>
+  );
+}
+
+function SerieFormScreen () {
+  return (
+    <View>
+      <SerieFormPage />
+    </View>
+  );
+}
 
 
 export default function Router() {
@@ -43,6 +62,8 @@ export default function Router() {
           }
         }}>
           <Stack.Screen name="Series" component={SeriesScreen} options={{ title: 'Séries'}}/>
+          <Stack.Screen name="SerieForm" component={SerieFormScreen} options={{ title: 'Nova Série'}}/>
+          <Stack.Screen name="SerieDetail" component={SerieDetailScreen} options={({ route }) => ({ title: route.params.serie.title })} />
           <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Bem-Vindo!'}}/>
         </Stack.Navigator>
       </NavigationContainer>

@@ -8,7 +8,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 
-const SerieCard = ({ serie, isFirstColumn, onNavigate }) => (
+const AddSerieCard = ({ serie, isFirstColumn, onNavigate }) => (
     <TouchableOpacity 
         onPress={() => onNavigate(serie)}
         style={[
@@ -16,13 +16,12 @@ const SerieCard = ({ serie, isFirstColumn, onNavigate }) => (
             isFirstColumn ? styles.firstColumn : styles.lastColumn
         ]}>
         <View style={styles.card}>
+            
             <Image 
-                source={{ uri: serie.img }}
-                aspectRatio={1}
+                source={require('../resources/add-circle-line.png')}
+                style={styles.imgCard}
             />
-            <View style={styles.cardTitleWrapper}>
-                <Text style={styles.cardTitle} >{ serie.title }</Text>
-            </View>
+            <Text style={styles.labelCard}> Adicionar Novo </Text>
         </View>
     </TouchableOpacity>
 
@@ -39,29 +38,23 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: 'white',
     },
-    cardTitleWrapper: {
-        backgroundColor: 'black',
-        height:50,
-        position: 'absolute',
-        bottom: 0,
-        opacity: .8,
-        width: '100%',
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 3,
-        paddingRight: 3,
-        alignItems: 'center',
-    },
-    cardTitle: {
-        color: 'white',
-        fontWeight: 'bold',
-    },
     firstColumn: {
         paddingLeft: 10
     },
     lastColumn: {
         paddingRight: 10
+    },
+    imgCard: {
+        aspectRatio: 1,
+        resizeMode: 'cover',
+        width: '75%',
+        height: '75%',
+        alignSelf: 'center'
+    },
+    labelCard: {
+        color: 'white',
+        alignSelf: 'center'
     }
 })
 
-export default SerieCard;
+export default AddSerieCard;
