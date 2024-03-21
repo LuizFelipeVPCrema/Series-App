@@ -1,11 +1,21 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
+
+import FormRow from '../components/FormRow'
 
 
 const SerieFormPage = props => {
         return(
             <View>
-                <Text style={{color: 'white'}}>ESTA E A SerieFormPage</Text>
+                <FormRow> 
+                    <TextInput 
+                        style={styles.input}
+                        placeholderTextColor={"gray"} 
+                        placeholder='Título'
+                        value=''
+                        onChangeText={value => console.log(value)}
+                    />
+                </FormRow>
             </View>
         );
 
@@ -18,6 +28,12 @@ const styles = StyleSheet.create({
     },
     marginBottom: {
         marginBottom: 5
+    },
+    input: {
+        color: 'white',
+        paddingLeft: 5,
+        paddingRight: 5,
+        paddingBottom: 5,    
     }
 })
 
