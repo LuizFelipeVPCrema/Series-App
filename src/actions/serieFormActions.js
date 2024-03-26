@@ -7,3 +7,7 @@ export const setField = (field, value) => {
         value
     }
 }
+
+export const saveSerie = serie => {
+    console.log('aqui vamos salvar nossa serie', serie)
+}

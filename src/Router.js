@@ -61,10 +61,10 @@ export default function Router() {
             fontSize: 25,
           }
         }}>
+          <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Bem-Vindo!'}}/>
           <Stack.Screen name="Series" component={SeriesScreen} options={{ title: 'Séries'}}/>
           <Stack.Screen name="SerieForm" component={SerieFormScreen} options={{ title: 'Nova Série'}}/>
           <Stack.Screen name="SerieDetail" component={SerieDetailScreen} options={({ route }) => ({ title: route.params.serie.title })} />
-          <Stack.Screen name="Login" component={LoginScreen} options={{ title: 'Bem-Vindo!'}}/>
         </Stack.Navigator>
       </NavigationContainer>
   );

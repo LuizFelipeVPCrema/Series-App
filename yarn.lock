@@ -2290,6 +2290,16 @@
     prompts "^2.4.2"
     semver "^7.5.2"
 
+"@react-native-community/slider@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@react-native-community/slider/-/slider-4.5.0.tgz#5c55488ee30060cd87100fb746b9d8655dbab04e"
+  integrity sha512-pyUvNTvu5IfCI5abzqRfO/dd3A009RC66RXZE6t0gyOwI/j0QDlq9VZRv3rjkpuIvNTnsYj+m5BHlh0DkSYUyA==
+
+"@react-native-picker/picker@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@react-native-picker/picker/-/picker-2.7.0.tgz#b88605dde333854d4015ee8861b624267c25d687"
+  integrity sha512-QWxfYPMyaCxWwJ9VoiWX4enQ0OZA7Q0O4f5n86b03LqnVyTNVYBnt4dYDTROfDUT9NhlS7Vqy0B3OV4pfyyG1g==
+
 "@react-native/assets-registry@0.73.1", "@react-native/assets-registry@~0.73.1":
   version "0.73.1"
   resolved "https://registry.npmjs.org/@react-native/assets-registry/-/assets-registry-0.73.1.tgz"
