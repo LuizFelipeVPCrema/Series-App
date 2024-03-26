@@ -50,16 +50,3 @@ export const tryLogin = ({ email, password }, app) => dispatch => {
     })
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-

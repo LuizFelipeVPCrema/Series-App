@@ -3,7 +3,7 @@ import {  View, Text, TextInput, StyleSheet, Button, ActivityIndicator, Alert} f
 import { useNavigation } from "@react-navigation/native";
 import { connect } from "react-redux";
 
-import firebaseApp from "../firebase/firebaseApp";
+import { firebaseApp } from "../firebase/firebaseApp";
 
 import  FormRow  from "../components/FormRow";
 import { tryLogin } from "../actions";
