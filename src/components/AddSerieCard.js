@@ -21,7 +21,7 @@ const AddSerieCard = ({ serie, isFirstColumn, onNavigate }) => (
                 source={require('../resources/add-circle-line.png')}
                 style={styles.imgCard}
             />
-            <Text style={styles.labelCard}> Adicionar Novo </Text>
+            <Text style={styles.labelCard}> Adicionar Nova </Text>
         </View>
     </TouchableOpacity>
 

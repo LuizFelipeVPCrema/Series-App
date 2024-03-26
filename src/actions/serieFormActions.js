@@ -11,18 +11,27 @@ export const setField = (field, value) => {
     }
 }
 
+export const SERIE_SAVED_SUCCESS = 'SERIE_SAVED_SUCCESS';
+const serieSavedSuccess = () => ({
+    type: SERIE_SAVED_SUCCESS
+})
+
 export const saveSerie = serie => {
     const user = auth.currentUser;
-    if (user) {
-        const seriesRef = ref(database, `/users/${user.uid}/series`);
-        push(seriesRef, serie) 
-          .then(() => {
-            console.log('Série salva com sucesso!');
-          })
-          .catch(error => {
-            console.error('Erro ao salvar série:', error);
-          });
-      } else {
-        console.error('Nenhum usuário logado.');
+
+    return async dispach => {
+        if (user) {
+            const seriesRef = ref(database, `/users/${user.uid}/series`);
+            return await push(seriesRef, serie) 
+              .then(() => {
+                console.log('Série salva com sucesso!');
+                dispach(serieSavedSuccess())
+              })
+              .catch(error => {
+                console.error('Erro ao salvar série:', error);
+              });
+          } else {
+            console.error('Nenhum usuário logado.');
+        }
     }
   };
