@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+
+import { setField } from '../actions';
 
 import FormRow from '../components/FormRow'
 
 
-const SerieFormPage = props => {
+const SerieFormPage = ({ serieForm, setField }) => {
         return(
             <View>
                 <FormRow> 
@@ -12,8 +15,8 @@ const SerieFormPage = props => {
                         style={styles.input}
                         placeholderTextColor={"gray"} 
                         placeholder='Título'
-                        value=''
-                        onChangeText={value => console.log(value)}
+                        value={serieForm.title}
+                        onChangeText={value => setField('title', value)}
                     />
                 </FormRow>
             </View>
@@ -37,4 +40,16 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SerieFormPage;
+function mapStateToProps(state) {
+    return {
+        serieForm: state.serieForm
+    }
+}
+
+const mapDispachToProps = {
+    setField
+}
+
+
+
+export default connect(mapStateToProps, mapDispachToProps)(SerieFormPage);

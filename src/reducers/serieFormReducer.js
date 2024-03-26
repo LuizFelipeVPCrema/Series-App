@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 
 
 export default function(state = INITIAL_STATE, action) {
-    switch (action.key) {
+    switch (action.type) {
         case SET_FIELD:
             const newState = { ...state };
             newState[action.field] = action.value;
