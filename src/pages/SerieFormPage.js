@@ -6,7 +6,8 @@ import { View,
     Button,
     ScrollView,
     KeyboardAvoidingView,
-    ActivityIndicator
+    ActivityIndicator,
+    Alert
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Slider from '@react-native-community/slider';
@@ -55,9 +56,9 @@ const SerieFormPage = ({ serieForm, setField, saveSerie }) => {
                         onValueChange={ itemValue => setField('gender', itemValue )}
                     >
 
-                        <Picker.Item label="Policial" value="police" />
-                        <Picker.Item label="Comédia" value="comedy" />
-                        <Picker.Item label="Terror" value="horror" />
+                        <Picker.Item label="Policial" value="Policial" />
+                        <Picker.Item label="Comédia" value="Comédia" />
+                        <Picker.Item label="Terror" value="Terror" />
                     </Picker>
                 </FormRow>
                 <FormRow>
@@ -90,9 +91,14 @@ const SerieFormPage = ({ serieForm, setField, saveSerie }) => {
                     title='Salvar'
                     onPress={async () => {
                         setIsLoading(true);
-                        await saveSerie(serieForm);
-                        setIsLoading(false);
-                        navigation.goBack();
+                        try {
+                            await saveSerie(serieForm);
+                            navigation.goBack();
+                        } catch(error) {
+                            Alert.alert('Error!', `Série não foi salva, ${error.message}`)
+                        } finally {
+                            setIsLoading(false);
+                        }
                     }}
                 />}
             </ScrollView>

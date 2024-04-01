@@ -19,19 +19,9 @@ const serieSavedSuccess = () => ({
 export const saveSerie = serie => {
     const user = auth.currentUser;
 
-    return async dispach => {
-        if (user) {
+    return async dispatch => {
             const seriesRef = ref(database, `/users/${user.uid}/series`);
             return await push(seriesRef, serie) 
-              .then(() => {
-                console.log('Série salva com sucesso!');
-                dispach(serieSavedSuccess())
-              })
-              .catch(error => {
-                console.error('Erro ao salvar série:', error);
-              });
-          } else {
-            console.error('Nenhum usuário logado.');
-        }
+              .then(() => { dispatch(serieSavedSuccess()) })
     }
   };
